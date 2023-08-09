@@ -1,0 +1,92 @@
+﻿@using newWebAppA00272195.Models;
+
+@{
+  ViewData["Title"] = "My Todo";
+}
+
+<div class="row align-items-start">
+  <div class="col-md-6">
+    <h4>@ViewData["Title"]</h4>
+
+<div class="card" style="width: 23rem;">
+  <div class="card-header">
+    In Complete
+  </div>
+  <ul class="list-group list-group-flush">
+    <form action="/index/markascompleted" method="post">
+    @if (Model.InCompleteTodoList.Count == 0)
+    {
+      <p>There are no todo in the list.</p>
+    }
+    @foreach (var todoItem in Model.InCompleteTodoList)
+    {
+      <li class="list-group-item">
+        <div class="form-check">
+        <input class="form-check-input" id="@todoItem.Id" type="checkbox" name="todoIds" value="@todoItem.Id"
+          checked="@todoItem.IsCompleted" />
+        <label class="form-check-label" for="IsCompleted">
+          @todoItem.Description
+        </label>
+      </div>
+      </li>
+
+    }
+    <div class="card-body">
+        <button type="submit" name="button" class="btn btn-success">Mark as completed</button>
+    </div>
+    </form>
+  </ul>
+</div>
+      </br>
+
+  <div class="card" style="width: 23rem;">
+  <div class="card-header">
+    Completed
+  </div>
+  <ul class="list-group list-group-flush">
+    <form action="/index/markascompleted" method="post">
+    @if (Model.CompletedTodoList.Count == 0)
+    {
+      <p>There are no todo in the list.</p>
+    }
+    @foreach (var todoItem in Model.CompletedTodoList)
+    {
+      <li class="list-group-item">
+        <div class="form-check">
+         <label class="form-check-label" for="IsCompleted">
+          <s>  @todoItem.Description <span>Date: <b> @todoItem.CompletionDate  </b> </span> </s>
+        </label>
+      </div>
+      </li>
+    }
+    </form>
+  </ul>
+</div>
+  </br>
+    <form action="/index/delete" method="post">
+      <button type="submit" name="button" class="btn btn-danger">Clear All Tasks</button>
+    </form>
+
+  </div>
+
+  <div class="col-md-6 align-self-start">
+   <div class="card w-85">
+  <div class="card-body">
+    <h5 class="card-title">Create Todo</h5>
+     <form method="post" asp-controller="Home" asp-action="Create">
+      <div class="form-group">
+        <label for="description" class="control-label">Add a new todo</label>
+        <input id="description" name="description" type="text" class="form-control">
+      </div>
+      <div class="form-group">
+        </br>
+        <input type="submit" class="btn btn-primary">
+      </div>
+    </form>
+  </div>
+</div>
+
+
+  </div>
+</div>
+
